@@ -7,26 +7,91 @@
 //
 
 import UIKit
+import CoreData
 
 class ViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout
  {
+    
+    var container: NSPersistentContainer!
+    var buttonObjectsArray = [NSManagedObject]()
+    var buttonObject: NSManagedObject?
+    var clickCellName: String?
 
     @IBOutlet var clickCollection: UICollectionView!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         clickCollection.delegate = self
         clickCollection.dataSource = self
         clickCollection.register(UINib(nibName: "CollectionClickCell", bundle: nil), forCellWithReuseIdentifier: "collectionClickCell")
+        container = NSPersistentContainer(name: "Click_")
 
+        container.loadPersistentStores { storeDescription, error in
+            if let error = error {
+                print("Unresolved error \(error)")
+            }
+        }
+
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        populateButtonArray()
+    }
+    
+    func populateButtonArray() {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {return}
+        let managedContext = appDelegate.persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "ClickerButton")
+        buttonObjectsArray.removeAll()
+        do {
+            let result = try managedContext.fetch(fetchRequest)
+            for data in result as! [NSManagedObject] {
+                print(data.value(forKey: "name") as! String)
+                buttonObjectsArray = buttonObjectsArray + [data]
+            }
+            clickCollection.reloadData()
+        } catch {
+            print("failed homie")
+        }
+    }
+    
+    func saveContext() {
+        if container.viewContext.hasChanges {
+            do {
+                try container.viewContext.save()
+            } catch {
+                print("An error occurred while saving: \(error)")
+            }
+        }
     }
 
     
+    @IBAction func clickAddButton(_ sender: UIBarButtonItem) {
+        let ac = UIAlertController(title: "Enter clickable name", message: nil, preferredStyle: .alert)
+        ac.addTextField()
+
+        let submitAction = UIAlertAction(title: "Submit", style: .default) { [unowned ac] _ in
+            let answer = ac.textFields![0]
+            self.clickCellName = answer.text
+            self.saveData()
+            self.populateButtonArray()
+            }
+        
+        ac.addAction(submitAction)
+        present(ac, animated: true)
+
+    }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+
+        return buttonObjectsArray.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "collectionClickCell", for: indexPath as IndexPath) as! CollectionClickCell
+        //cell.titleLabel.text = locationObjectsArray[indexPath.row].value(forKey: "locationName") as? String
+        cell.cellNameLabel.text = buttonObjectsArray[indexPath.row].value(forKey: "name") as? String
         return cell
     }
     
@@ -53,6 +118,27 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 0
     }
+    
+    func saveData() {
+            //refer to AppDelegate core data container
+            guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {return}
+            //create context for container
+            let managedContext = appDelegate.persistentContainer.viewContext
+            //create an entity for new records
+            let itemEntity = NSEntityDescription.entity(forEntityName: "ClickerButton", in: managedContext)!
+            let item = NSManagedObject(entity: itemEntity, insertInto: managedContext)
+            item.setValue(clickCellName, forKey: "name")
+            
+    //        let uuid = UUID().uuidString
+    //        item.setValue(uuid, forKey: "locationID")
+            
+            do {
+                try managedContext.save()
+            } catch let error as NSError {
+                print("could not save. \(error), \(error.userInfo)")
+            }
+        
+        }
     
 }
 
