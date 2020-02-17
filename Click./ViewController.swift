@@ -16,6 +16,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     var buttonObject: NSManagedObject?
     var clickCellName: String?
     var uuid: String?
+    var clickDate = Date()
 
     @IBOutlet var clickCollection: UICollectionView!
     
@@ -56,7 +57,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             let answer = ac.textFields![0]
             self.clickCellName = answer.text
             self.uuid = UUID().uuidString
-            self.saveData()
+            self.saveNewButton()
             self.populateButtonArray()
             }
         
@@ -81,7 +82,9 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         // handle tap events
         print("You selected cell #\(indexPath.item)!")
-        print(buttonObjectsArray[indexPath.row].value(forKey: "buttonID") as? String)
+        uuid = buttonObjectsArray[indexPath.row].value(forKey: "buttonID") as? String
+        clickDate = Date()
+        saveClickData()
        
     }
     
@@ -104,7 +107,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         return 0
     }
     
-    func saveData() {
+    func saveNewButton() {
             //refer to AppDelegate core data container
             guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {return}
             //create context for container
@@ -122,6 +125,25 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             }
         
         }
+    
+    func saveClickData() {
+        //refer to AppDelegate core data container
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {return}
+        //create context for container
+        let managedContext = appDelegate.persistentContainer.viewContext
+        //create an entity for new records
+        let itemEntity = NSEntityDescription.entity(forEntityName: "ClickerButtonData", in: managedContext)!
+        let item = NSManagedObject(entity: itemEntity, insertInto: managedContext)
+        item.setValue(clickDate, forKey: "date")
+    item.setValue(uuid, forKey: "buttonID")
+        
+        do {
+            try managedContext.save()
+        } catch let error as NSError {
+            print("could not save. \(error), \(error.userInfo)")
+        }
+    
+    }
     
 }
 
