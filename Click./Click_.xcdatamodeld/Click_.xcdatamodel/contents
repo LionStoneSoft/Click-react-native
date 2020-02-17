@@ -6,7 +6,7 @@
     </entity>
     <entity name="ClickerButtonData" representedClassName="ClickerButtonData" syncable="YES" codeGenerationType="class">
         <attribute name="buttonID" optional="YES" attributeType="String"/>
-        <attribute name="date" optional="YES" attributeType="String"/>
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
     </entity>
     <elements>
         <element name="ClickerButton" positionX="-36" positionY="9" width="128" height="73"/>

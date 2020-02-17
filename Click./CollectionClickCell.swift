@@ -13,6 +13,7 @@ class CollectionClickCell: UICollectionViewCell {
     @IBOutlet var cellBackgroundView: UIView!
     @IBOutlet var cellNameLabel: UILabel!
     @IBOutlet var cellLastDateAndTime: UILabel!
+    var cellID: String?
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

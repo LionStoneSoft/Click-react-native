@@ -12,10 +12,10 @@ import CoreData
 class ViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout
  {
     
-    var container: NSPersistentContainer!
     var buttonObjectsArray = [NSManagedObject]()
     var buttonObject: NSManagedObject?
     var clickCellName: String?
+    var uuid: String?
 
     @IBOutlet var clickCollection: UICollectionView!
     
@@ -25,14 +25,6 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         clickCollection.delegate = self
         clickCollection.dataSource = self
         clickCollection.register(UINib(nibName: "CollectionClickCell", bundle: nil), forCellWithReuseIdentifier: "collectionClickCell")
-        container = NSPersistentContainer(name: "Click_")
-
-        container.loadPersistentStores { storeDescription, error in
-            if let error = error {
-                print("Unresolved error \(error)")
-            }
-        }
-
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -56,17 +48,6 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         }
     }
     
-    func saveContext() {
-        if container.viewContext.hasChanges {
-            do {
-                try container.viewContext.save()
-            } catch {
-                print("An error occurred while saving: \(error)")
-            }
-        }
-    }
-
-    
     @IBAction func clickAddButton(_ sender: UIBarButtonItem) {
         let ac = UIAlertController(title: "Enter clickable name", message: nil, preferredStyle: .alert)
         ac.addTextField()
@@ -74,6 +55,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         let submitAction = UIAlertAction(title: "Submit", style: .default) { [unowned ac] _ in
             let answer = ac.textFields![0]
             self.clickCellName = answer.text
+            self.uuid = UUID().uuidString
             self.saveData()
             self.populateButtonArray()
             }
@@ -92,12 +74,15 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "collectionClickCell", for: indexPath as IndexPath) as! CollectionClickCell
         //cell.titleLabel.text = locationObjectsArray[indexPath.row].value(forKey: "locationName") as? String
         cell.cellNameLabel.text = buttonObjectsArray[indexPath.row].value(forKey: "name") as? String
+        cell.cellID = buttonObjectsArray[indexPath.row].value(forKey: "buttonID") as? String
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         // handle tap events
         print("You selected cell #\(indexPath.item)!")
+        print(buttonObjectsArray[indexPath.row].value(forKey: "buttonID") as? String)
+       
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -128,9 +113,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             let itemEntity = NSEntityDescription.entity(forEntityName: "ClickerButton", in: managedContext)!
             let item = NSManagedObject(entity: itemEntity, insertInto: managedContext)
             item.setValue(clickCellName, forKey: "name")
-            
-    //        let uuid = UUID().uuidString
-    //        item.setValue(uuid, forKey: "locationID")
+        item.setValue(uuid, forKey: "buttonID")
             
             do {
                 try managedContext.save()
