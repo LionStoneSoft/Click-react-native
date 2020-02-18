@@ -13,7 +13,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
  {
     
     var buttonObjectsArray = [NSManagedObject]()
-    var buttonObject: NSManagedObject?
+    var clickDataArray = [NSManagedObject]()
     var clickCellName: String?
     var uuid: String?
     var clickDate = Date()
@@ -25,13 +25,16 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         super.viewDidLoad()
         clickCollection.delegate = self
         clickCollection.dataSource = self
+        //register nib
         clickCollection.register(UINib(nibName: "CollectionClickCell", bundle: nil), forCellWithReuseIdentifier: "collectionClickCell")
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        //populate button grid on load
         populateButtonArray()
     }
     
+    //refreshes and re-populates array
     func populateButtonArray() {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {return}
         let managedContext = appDelegate.persistentContainer.viewContext
@@ -41,7 +44,27 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             let result = try managedContext.fetch(fetchRequest)
             for data in result as! [NSManagedObject] {
                 print(data.value(forKey: "name") as! String)
+                print(data.value(forKey: "buttonID") as! String)
                 buttonObjectsArray = buttonObjectsArray + [data]
+            }
+            clickCollection.reloadData()
+        } catch {
+            print("failed homie")
+        }
+    }
+    
+    func populateClickDataArray() {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {return}
+        let managedContext = appDelegate.persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "ClickerButtonData")
+        clickDataArray.removeAll()
+        do {
+            let result = try managedContext.fetch(fetchRequest)
+            for data in result as! [NSManagedObject] {
+                print(data.value(forKey: "buttonID") as! String)
+                print(data.value(forKey: "date") as! Date)
+                print(clickDataArray.count)
+                clickDataArray = clickDataArray + [data]
             }
             clickCollection.reloadData()
         } catch {
@@ -85,6 +108,23 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         uuid = buttonObjectsArray[indexPath.row].value(forKey: "buttonID") as? String
         clickDate = Date()
         saveClickData()
+        populateClickDataArray()
+        
+//        //animate cell on select?
+//        let cell = collectionView.cellForItem(at: indexPath)
+//
+//        //Briefly fade the cell on selection
+//        UIView.animate(withDuration: 0.5,
+//                       animations: {
+//                        //Fade-out
+//                        cell?.alpha = 0.5
+//        }) { (completed) in
+//            UIView.animate(withDuration: 0.5,
+//                           animations: {
+//                            //Fade-out
+//                            cell?.alpha = 1
+//            })
+//        }
        
     }
     
@@ -106,7 +146,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 0
     }
-    
+        
     func saveNewButton() {
             //refer to AppDelegate core data container
             guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {return}
