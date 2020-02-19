@@ -9,13 +9,13 @@
 import UIKit
 import CoreData
 
-class ViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout
+class ViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UIGestureRecognizerDelegate
  {
     
     var buttonObjectsArray = [NSManagedObject]()
     var clickDataArray = [NSManagedObject]()
     var clickCellName: String?
-    var uuid: String?
+    var uuid: String? = "ppap"
     var clickDate = Date()
 
     @IBOutlet var clickCollection: UICollectionView!
@@ -27,11 +27,39 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         clickCollection.dataSource = self
         //register nib
         clickCollection.register(UINib(nibName: "CollectionClickCell", bundle: nil), forCellWithReuseIdentifier: "collectionClickCell")
+        let lpgr = UILongPressGestureRecognizer(target: self, action: "handleLongPress:")
+        lpgr.minimumPressDuration = 0.8
+        //lpgr.delaysTouchesBegan = true
+        lpgr.delegate = self
+        self.clickCollection.addGestureRecognizer(lpgr)
+    }
+    
+    @objc func handleLongPress(_ gestureRecognizer: UILongPressGestureRecognizer) {
+        guard gestureRecognizer.state != .ended else { return }
+        if gestureRecognizer.state == UIGestureRecognizer.State.began {
+        let point = gestureRecognizer.location(in: clickCollection)
+
+        if let indexPath = clickCollection.indexPathForItem(at: point),
+           let cell = clickCollection.cellForItem(at: indexPath) {
+            // do stuff with your cell, for example print the indexPath
+            self.performSegue(withIdentifier: "goToData", sender: self)
+            print(indexPath.row)
+        } else {
+            print("Could not find index path")
+        }
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         //populate button grid on load
         populateButtonArray()
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "goToData" {
+            let secondView = segue.destination as! ClickDataView
+            //secondView.clickDataTestLabel.text = uuid
+        }
     }
     
     //refreshes and re-populates array
@@ -43,8 +71,8 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         do {
             let result = try managedContext.fetch(fetchRequest)
             for data in result as! [NSManagedObject] {
-                print(data.value(forKey: "name") as! String)
-                print(data.value(forKey: "buttonID") as! String)
+//                print(data.value(forKey: "name") as! String)
+//                print(data.value(forKey: "buttonID") as! String)
                 buttonObjectsArray = buttonObjectsArray + [data]
             }
             clickCollection.reloadData()
@@ -61,9 +89,9 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         do {
             let result = try managedContext.fetch(fetchRequest)
             for data in result as! [NSManagedObject] {
-                print(data.value(forKey: "buttonID") as! String)
-                print(data.value(forKey: "date") as! Date)
-                print(clickDataArray.count)
+//                print(data.value(forKey: "buttonID") as! String)
+//                print(data.value(forKey: "date") as! Date)
+                //print(clickDataArray.count)
                 clickDataArray = clickDataArray + [data]
             }
             clickCollection.reloadData()
@@ -96,35 +124,24 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "collectionClickCell", for: indexPath as IndexPath) as! CollectionClickCell
-        //cell.titleLabel.text = locationObjectsArray[indexPath.row].value(forKey: "locationName") as? String
         cell.cellNameLabel.text = buttonObjectsArray[indexPath.row].value(forKey: "name") as? String
         cell.cellID = buttonObjectsArray[indexPath.row].value(forKey: "buttonID") as? String
+        for data in clickDataArray {
+            if data.value(forKey: "buttonID") as? String == cell.cellID {
+                cell.cellLastDateAndTime.text = data.value(forKey: "buttonID") as? String
+
+            }
+        }
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         // handle tap events
-        print("You selected cell #\(indexPath.item)!")
+        //print("You selected cell #\(indexPath.item)!")
         uuid = buttonObjectsArray[indexPath.row].value(forKey: "buttonID") as? String
         clickDate = Date()
         saveClickData()
         populateClickDataArray()
-        
-//        //animate cell on select?
-//        let cell = collectionView.cellForItem(at: indexPath)
-//
-//        //Briefly fade the cell on selection
-//        UIView.animate(withDuration: 0.5,
-//                       animations: {
-//                        //Fade-out
-//                        cell?.alpha = 0.5
-//        }) { (completed) in
-//            UIView.animate(withDuration: 0.5,
-//                           animations: {
-//                            //Fade-out
-//                            cell?.alpha = 1
-//            })
-//        }
        
     }
     

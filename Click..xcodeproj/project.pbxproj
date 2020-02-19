@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9460A35523FD709B0029D1D8 /* ClickDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9460A35423FD709B0029D1D8 /* ClickDataView.swift */; };
 		94F9BE2F23F8934500AE6ABD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94F9BE2E23F8934500AE6ABD /* AppDelegate.swift */; };
 		94F9BE3123F8934500AE6ABD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94F9BE3023F8934500AE6ABD /* SceneDelegate.swift */; };
 		94F9BE3323F8934500AE6ABD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94F9BE3223F8934500AE6ABD /* ViewController.swift */; };
@@ -19,6 +20,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9460A35423FD709B0029D1D8 /* ClickDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClickDataView.swift; sourceTree = "<group>"; };
 		94F9BE2B23F8934500AE6ABD /* Click..app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Click..app; sourceTree = BUILT_PRODUCTS_DIR; };
 		94F9BE2E23F8934500AE6ABD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		94F9BE3023F8934500AE6ABD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -72,6 +74,7 @@
 				94F9BE3723F8934600AE6ABD /* Click_.xcdatamodeld */,
 				94F9BE4523F975E400AE6ABD /* CollectionClickCell.swift */,
 				94F9BE4623F975E400AE6ABD /* CollectionClickCell.xib */,
+				9460A35423FD709B0029D1D8 /* ClickDataView.swift */,
 			);
 			path = Click.;
 			sourceTree = "<group>";
@@ -149,6 +152,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				94F9BE3923F8934600AE6ABD /* Click_.xcdatamodeld in Sources */,
+				9460A35523FD709B0029D1D8 /* ClickDataView.swift in Sources */,
 				94F9BE3323F8934500AE6ABD /* ViewController.swift in Sources */,
 				94F9BE2F23F8934500AE6ABD /* AppDelegate.swift in Sources */,
 				94F9BE3123F8934500AE6ABD /* SceneDelegate.swift in Sources */,
@@ -299,6 +303,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3E65B2D9NB;
 				INFOPLIST_FILE = Click./Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -317,6 +322,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3E65B2D9NB;
 				INFOPLIST_FILE = Click./Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
