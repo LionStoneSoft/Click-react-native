@@ -6,16 +6,16 @@
 //  Copyright © 2020 LionStone. All rights reserved.
 //
 
-import Foundation
-
 import UIKit
 import CoreData
 
 class ClickDataView: UIViewController
  {
     @IBOutlet var clickDataTestLabel: UILabel!
+    var buttonID: String? = "testetstesteste"
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        clickDataTestLabel.text = buttonID
     }
 }

@@ -42,6 +42,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         if let indexPath = clickCollection.indexPathForItem(at: point),
            let cell = clickCollection.cellForItem(at: indexPath) {
             // do stuff with your cell, for example print the indexPath
+            uuid = buttonObjectsArray[indexPath.row].value(forKey: "buttonID") as? String
             self.performSegue(withIdentifier: "goToData", sender: self)
             print(indexPath.row)
         } else {
@@ -58,7 +59,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "goToData" {
             let secondView = segue.destination as! ClickDataView
-            //secondView.clickDataTestLabel.text = uuid
+            secondView.buttonID = uuid
         }
     }
     
