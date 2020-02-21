@@ -23,12 +23,18 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+//        let today = Date()
+//        let formatter3 = DateFormatter()
+//        formatter3.dateFormat = "HH:mm \nd MMM y"
+//        print(formatter3.string(from: today))
+        
         clickCollection.delegate = self
         clickCollection.dataSource = self
         //register nib
         clickCollection.register(UINib(nibName: "CollectionClickCell", bundle: nil), forCellWithReuseIdentifier: "collectionClickCell")
-        let lpgr = UILongPressGestureRecognizer(target: self, action: "handleLongPress:")
-        lpgr.minimumPressDuration = 0.8
+        let lpgr = UILongPressGestureRecognizer(target: self, action: Selector(("handleLongPress:")))
+        lpgr.minimumPressDuration = 0.7
         //lpgr.delaysTouchesBegan = true
         lpgr.delegate = self
         self.clickCollection.addGestureRecognizer(lpgr)
@@ -39,8 +45,9 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         if gestureRecognizer.state == UIGestureRecognizer.State.began {
         let point = gestureRecognizer.location(in: clickCollection)
 
-        if let indexPath = clickCollection.indexPathForItem(at: point),
-           let cell = clickCollection.cellForItem(at: indexPath) {
+        if let indexPath = clickCollection.indexPathForItem(at: point)//,
+           //let cell = clickCollection.cellForItem(at: indexPath)
+        {
             // do stuff with your cell, for example print the indexPath
             uuid = buttonObjectsArray[indexPath.row].value(forKey: "buttonID") as? String
             self.performSegue(withIdentifier: "goToData", sender: self)
@@ -115,6 +122,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         cell.cellNameLabel.text = buttonObjectsArray[indexPath.row].value(forKey: "name") as? String
         cell.cellID = buttonObjectsArray[indexPath.row].value(forKey: "buttonID") as? String
         cell.cellButtonCountLabel.text = String(cellsCount) //String(buttonCount)
+        cell.cellLastDateAndTime.text = buttonObjectsArray[indexPath.row].value(forKey: "latestDate") as? String
         return cell
     }
     
@@ -187,6 +195,11 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     func storeButtonCount(buttonIDString: String) {
         
+        let today = Date()
+        let formatter3 = DateFormatter()
+        formatter3.dateFormat = "HH:mm \nd MMM y"
+        //print(formatter3.string(from: today))
+        
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {return}
         let managedContext = appDelegate.persistentContainer.viewContext
         
@@ -195,10 +208,9 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         let result = try? managedContext.fetch(fetchRequest)
         let resultData = result as! [ClickerButton]
         for object in resultData {
-            print(object.name)
-            print(object.buttonCount)
             buttonCount = Int(object.buttonCount + 1)
             object.buttonCount = object.buttonCount + 1
+            object.latestDate = formatter3.string(from: today)
         }
         do {
             try managedContext.save()

@@ -63,7 +63,7 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" id="CiD-iC-GBQ">
-                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="add" id="He6-30-Up8">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="He6-30-Up8">
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
                                 <action selector="clickAddButton:" destination="BYZ-38-t0r" id="leW-HY-5tm"/>
