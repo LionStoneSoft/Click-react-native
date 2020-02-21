@@ -14,11 +14,14 @@ class CollectionClickCell: UICollectionViewCell {
     @IBOutlet var cellNameLabel: UILabel!
     @IBOutlet var cellLastDateAndTime: UILabel!
     @IBOutlet var backgroundImage: UIImageView!
+    @IBOutlet var cellButtonCountLabel: UILabel!
     var cellID: String?
+    var pressCount = 0
     
     override func awakeFromNib() {
         super.awakeFromNib()
         roundedImage()
+
         // Initialization code
     }
         

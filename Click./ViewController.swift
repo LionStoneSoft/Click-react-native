@@ -13,10 +13,10 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
  {
     
     var buttonObjectsArray = [NSManagedObject]()
-    var clickDataArray = [NSManagedObject]()
     var clickCellName: String?
     var uuid: String? = "ppap"
     var clickDate = Date()
+    var buttonCount = 0
 
     @IBOutlet var clickCollection: UICollectionView!
     
@@ -52,6 +52,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         //populate button grid on load
         populateButtonArray()
     }
@@ -82,25 +83,6 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         }
     }
     
-    func populateClickDataArray() {
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {return}
-        let managedContext = appDelegate.persistentContainer.viewContext
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "ClickerButtonData")
-        clickDataArray.removeAll()
-        do {
-            let result = try managedContext.fetch(fetchRequest)
-            for data in result as! [NSManagedObject] {
-//                print(data.value(forKey: "buttonID") as! String)
-//                print(data.value(forKey: "date") as! Date)
-                //print(clickDataArray.count)
-                clickDataArray = clickDataArray + [data]
-            }
-            clickCollection.reloadData()
-        } catch {
-            print("failed homie")
-        }
-    }
-    
     @IBAction func clickAddButton(_ sender: UIBarButtonItem) {
         let ac = UIAlertController(title: "Enter clickable name", message: nil, preferredStyle: .alert)
         ac.addTextField()
@@ -113,7 +95,11 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             self.populateButtonArray()
             }
         
+        let cancelAction = UIAlertAction(title: "Cancel",
+        style: .cancel)
+        
         ac.addAction(submitAction)
+        ac.addAction(cancelAction)
         present(ac, animated: true)
 
     }
@@ -124,15 +110,11 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cellsCount: Int = buttonObjectsArray[indexPath.row].value(forKey: "buttonCount") as! Int
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "collectionClickCell", for: indexPath as IndexPath) as! CollectionClickCell
         cell.cellNameLabel.text = buttonObjectsArray[indexPath.row].value(forKey: "name") as? String
         cell.cellID = buttonObjectsArray[indexPath.row].value(forKey: "buttonID") as? String
-        for data in clickDataArray {
-            if data.value(forKey: "buttonID") as? String == cell.cellID {
-                cell.cellLastDateAndTime.text = data.value(forKey: "buttonID") as? String
-
-            }
-        }
+        cell.cellButtonCountLabel.text = String(cellsCount) //String(buttonCount)
         return cell
     }
     
@@ -142,8 +124,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         uuid = buttonObjectsArray[indexPath.row].value(forKey: "buttonID") as? String
         clickDate = Date()
         saveClickData()
-        populateClickDataArray()
-       
+        storeButtonCount(buttonIDString: uuid!)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -175,6 +156,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             let item = NSManagedObject(entity: itemEntity, insertInto: managedContext)
             item.setValue(clickCellName, forKey: "name")
         item.setValue(uuid, forKey: "buttonID")
+        item.setValue(0, forKey: "buttonCount")
             
             do {
                 try managedContext.save()
@@ -202,6 +184,45 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         }
     
     }
+    
+    func storeButtonCount(buttonIDString: String) {
+        
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {return}
+        let managedContext = appDelegate.persistentContainer.viewContext
+        
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "ClickerButton")
+        fetchRequest.predicate = NSPredicate(format: "buttonID = %@", buttonIDString)
+        let result = try? managedContext.fetch(fetchRequest)
+        let resultData = result as! [ClickerButton]
+        for object in resultData {
+            print(object.name)
+            print(object.buttonCount)
+            buttonCount = Int(object.buttonCount + 1)
+            object.buttonCount = object.buttonCount + 1
+        }
+        do {
+            try managedContext.save()
+            print("saved!")
+        } catch let error as NSError  {
+            print("Could not save \(error), \(error.userInfo)")
+        }
+        clickCollection.reloadData()
+        
+    }
+    
+//    func updateButtonDateAndCount() {
+//
+//        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {return}
+//        let managedContext = appDelegate.persistentContainer.viewContext
+//        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "ClickerButton")
+//
+//            let request = NSFetchRequest<ClickerButton>(entityName: "ClickerButton")
+//        request.predicate = NSPredicate(format: "buttonID == %@", uuid!)
+//
+//            let users = try self.context.fetch(request)
+//            return users
+//
+//    }
     
 }
 
