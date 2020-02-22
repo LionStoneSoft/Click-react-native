@@ -13,11 +13,33 @@ class ClickDataView: UIViewController
  {
     @IBOutlet var clickDataTestLabel: UILabel!
     var clickDataArray = [NSManagedObject]()
-    var buttonID: String? = "testetstesteste"
+    var buttonID: String? = "test"
 
     override func viewDidLoad() {
         super.viewDidLoad()
         clickDataTestLabel.text = buttonID
+        populateDataArray()
+    }
+    
+    func populateDataArray() {
+        
+//        let today = Date()
+//        let formatter3 = DateFormatter()
+//        formatter3.dateFormat = "HH:mm \nd MMM y"
+        //print(formatter3.string(from: today))
+        
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {return}
+        let managedContext = appDelegate.persistentContainer.viewContext
+        
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "ClickerButtonData")
+        fetchRequest.predicate = NSPredicate(format: "buttonID = %@", buttonID!)
+        let result = try? managedContext.fetch(fetchRequest)
+        let resultData = result as! [ClickerButtonData]
+        for object in resultData {
+            clickDataArray = clickDataArray +  [object]
+        }
+        //clickCollection.reloadData()
+        print(clickDataArray.count)
     }
     
 //        func populateClickDataArray() {
