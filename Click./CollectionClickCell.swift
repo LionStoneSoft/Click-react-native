@@ -35,7 +35,7 @@ class CollectionClickCell: UICollectionViewCell {
             toggleIsHighlighted()
         }
     }
-
+    
     func toggleIsHighlighted() {
         UIView.animate(withDuration: 0.1, delay: 0, options: [.curveEaseOut], animations: {
             self.alpha = self.isHighlighted ? 0.9 : 1.0

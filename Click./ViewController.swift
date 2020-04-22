@@ -123,6 +123,16 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         cell.cellID = buttonObjectsArray[indexPath.row].value(forKey: "buttonID") as? String
         cell.cellButtonCountLabel.text = String(cellsCount) //String(buttonCount)
         cell.cellLastDateAndTime.text = buttonObjectsArray[indexPath.row].value(forKey: "latestDate") as? String
+        
+        let leftSwipeGest = UISwipeGestureRecognizer(target: self, action: #selector(swipeMade))
+        leftSwipeGest.direction = .left
+        cell.addGestureRecognizer(leftSwipeGest)
+        
+        let rightSwipeGest = UISwipeGestureRecognizer(target: self, action: #selector(swipeMade))
+        rightSwipeGest.direction = .right
+        cell.addGestureRecognizer(rightSwipeGest)
+
+        
         return cell
     }
     
@@ -220,6 +230,16 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         }
         clickCollection.reloadData()
         
+    }
+    
+    @objc func swipeMade(_ sender: UISwipeGestureRecognizer) {
+                
+       if sender.direction == .left {
+          print("left swipe made")
+       }
+       if sender.direction == .right {
+          print("right swipe made")
+       }
     }
     
 //    func updateButtonDateAndCount() {
