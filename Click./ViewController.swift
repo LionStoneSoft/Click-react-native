@@ -33,7 +33,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         clickCollection.dataSource = self
         //register nib
         clickCollection.register(UINib(nibName: "CollectionClickCell", bundle: nil), forCellWithReuseIdentifier: "collectionClickCell")
-        let lpgr = UILongPressGestureRecognizer(target: self, action: Selector(("handleLongPress:")))
+        let lpgr = UILongPressGestureRecognizer(target: self, action: #selector(self.handleLongPress(_:)))
         lpgr.minimumPressDuration = 0.7
         //lpgr.delaysTouchesBegan = true
         lpgr.delegate = self

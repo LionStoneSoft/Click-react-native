@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		944FEB2D2451931100DB12D9 /* LineChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 944FEB2C2451931100DB12D9 /* LineChart.swift */; };
+		944FEB2F2451932500DB12D9 /* CurveAlgorithm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 944FEB2E2451932500DB12D9 /* CurveAlgorithm.swift */; };
+		944FEB31245193DD00DB12D9 /* DotCALayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 944FEB30245193DD00DB12D9 /* DotCALayer.swift */; };
 		9460A35523FD709B0029D1D8 /* ClickDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9460A35423FD709B0029D1D8 /* ClickDataView.swift */; };
 		94F9BE2F23F8934500AE6ABD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94F9BE2E23F8934500AE6ABD /* AppDelegate.swift */; };
 		94F9BE3123F8934500AE6ABD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94F9BE3023F8934500AE6ABD /* SceneDelegate.swift */; };
@@ -20,6 +23,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		944FEB2C2451931100DB12D9 /* LineChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineChart.swift; sourceTree = "<group>"; };
+		944FEB2E2451932500DB12D9 /* CurveAlgorithm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurveAlgorithm.swift; sourceTree = "<group>"; };
+		944FEB30245193DD00DB12D9 /* DotCALayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DotCALayer.swift; sourceTree = "<group>"; };
 		9460A35423FD709B0029D1D8 /* ClickDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClickDataView.swift; sourceTree = "<group>"; };
 		94F9BE2B23F8934500AE6ABD /* Click..app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Click..app; sourceTree = BUILT_PRODUCTS_DIR; };
 		94F9BE2E23F8934500AE6ABD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -75,6 +81,9 @@
 				94F9BE4523F975E400AE6ABD /* CollectionClickCell.swift */,
 				94F9BE4623F975E400AE6ABD /* CollectionClickCell.xib */,
 				9460A35423FD709B0029D1D8 /* ClickDataView.swift */,
+				944FEB2C2451931100DB12D9 /* LineChart.swift */,
+				944FEB2E2451932500DB12D9 /* CurveAlgorithm.swift */,
+				944FEB30245193DD00DB12D9 /* DotCALayer.swift */,
 			);
 			path = Click.;
 			sourceTree = "<group>";
@@ -152,9 +161,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				94F9BE3923F8934600AE6ABD /* Click_.xcdatamodeld in Sources */,
+				944FEB31245193DD00DB12D9 /* DotCALayer.swift in Sources */,
 				9460A35523FD709B0029D1D8 /* ClickDataView.swift in Sources */,
 				94F9BE3323F8934500AE6ABD /* ViewController.swift in Sources */,
+				944FEB2F2451932500DB12D9 /* CurveAlgorithm.swift in Sources */,
 				94F9BE2F23F8934500AE6ABD /* AppDelegate.swift in Sources */,
+				944FEB2D2451931100DB12D9 /* LineChart.swift in Sources */,
 				94F9BE3123F8934500AE6ABD /* SceneDelegate.swift in Sources */,
 				94F9BE4723F975E400AE6ABD /* CollectionClickCell.swift in Sources */,
 			);

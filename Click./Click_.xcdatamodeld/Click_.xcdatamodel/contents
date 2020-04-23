@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15702" systemVersion="19D76" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="16119" systemVersion="19D76" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="ClickerButton" representedClassName="ClickerButton" syncable="YES" codeGenerationType="class">
         <attribute name="buttonCount" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="buttonID" optional="YES" attributeType="String"/>
@@ -8,10 +8,11 @@
     </entity>
     <entity name="ClickerButtonData" representedClassName="ClickerButtonData" syncable="YES" codeGenerationType="class">
         <attribute name="buttonID" optional="YES" attributeType="String"/>
+        <attribute name="clickDescription" optional="YES" attributeType="String"/>
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
     </entity>
     <elements>
         <element name="ClickerButton" positionX="-36" positionY="9" width="128" height="103"/>
-        <element name="ClickerButtonData" positionX="9" positionY="72" width="128" height="73"/>
+        <element name="ClickerButtonData" positionX="9" positionY="72" width="128" height="88"/>
     </elements>
 </model>
