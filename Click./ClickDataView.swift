@@ -27,9 +27,9 @@ class ClickDataView: UIViewController
         print(dateArray)
         let dataEntries = populateDataIntoChart()
         lineChart.dataEntries = dataEntries
-        lineChart.isCurved = true
-        lineChart.showDots = true
-        lineChart.animateDots = true
+        //lineChart.isCurved = true
+        //lineChart.showDots = true
+        //lineChart.animateDots = true
         //print(dataEntries)
     }
     
@@ -88,6 +88,7 @@ class ClickDataView: UIViewController
     
     private func populateDataIntoChart() -> [PointEntry] {
         var result: [PointEntry] = []
+        result.append(PointEntry(label: "21 Apr", value: 1))
         for item in dailyButtonCounter {
             result.append(PointEntry(label: item.key, value: item.value))
         }
