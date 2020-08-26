@@ -26,12 +26,29 @@ class ClickDataView: UIViewController, ChartViewDelegate
         clickDataTestLabel.text = buttonID
         populateDataArray()
         print(dateArray)
-        
         lineChart.backgroundColor = .systemTeal
+        lineChart.rightAxis.enabled = false
+        let yAxis = lineChart.leftAxis
+        let xAxis = lineChart.xAxis
+        yAxis.labelFont = .boldSystemFont(ofSize: 12)
+        yAxis.setLabelCount(6, force: false)
+        yAxis.labelTextColor = .white
+        yAxis.axisLineColor = .white
+        yAxis.labelPosition = .outsideChart
+        xAxis.labelPosition = .bottom
+        xAxis.axisLineColor = .white
+        xAxis.labelTextColor = .white
+        xAxis.labelFont = .boldSystemFont(ofSize: 12)
+        
+        lineChart.animate(yAxisDuration: 1, easingOption: .easeOutSine)
+        
+        setData()
     }
     
     func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
-        print(entry)
+        //print(entry)
+        print("ppap")
+
     }
     
     func populateDataArray() {
@@ -96,6 +113,40 @@ class ClickDataView: UIViewController, ChartViewDelegate
 //        return result
 //    }
     
+    func setData() {
+        let set1 = LineChartDataSet(entries: yValues, label: "Week")
+        
+        set1.mode = .cubicBezier
+        set1.drawCirclesEnabled = false
+        set1.lineWidth = 3
+        set1.setColor(.white)
+        
+//        fills in the lower portion of line
+        
+//        set1.fill = Fill(color: .white)
+//        set1.fillAlpha = 0.8
+//        set1.drawFilledEnabled = true
+        
+        set1.drawHorizontalHighlightIndicatorEnabled = false
+        set1.highlightColor = .red
+        set1.highlightLineWidth = 2
+        
+        let data = LineChartData(dataSet: set1)
+        
+        data.setDrawValues(false)
+        lineChart.data = data
+    }
+    
+    
+    let yValues: [ChartDataEntry] = [
+        ChartDataEntry(x: 0.0, y: 1.0),
+        ChartDataEntry(x: 1.0, y: 3.0),
+        ChartDataEntry(x: 2.0, y: 6.0),
+        ChartDataEntry(x: 3.0, y: 2.0),
+        ChartDataEntry(x: 4.0, y: 3.0),
+        ChartDataEntry(x: 5.0, y: 1.0),
+        ChartDataEntry(x: 6.0, y: 11.0)
+    ]
 
     
 }
