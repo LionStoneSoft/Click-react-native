@@ -175,7 +175,8 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             item.setValue(clickCellName, forKey: "name")
         item.setValue(uuid, forKey: "buttonID")
         item.setValue(0, forKey: "buttonCount")
-            
+        item.setValue(buttonObjectsArray.count, forKey: "buttonPosition")
+        print(buttonObjectsArray.count)
             do {
                 try managedContext.save()
             } catch let error as NSError {
@@ -193,7 +194,8 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         let itemEntity = NSEntityDescription.entity(forEntityName: "ClickerButtonData", in: managedContext)!
         let item = NSManagedObject(entity: itemEntity, insertInto: managedContext)
         item.setValue(clickDate, forKey: "date")
-    item.setValue(uuid, forKey: "buttonID")
+        item.setValue(clickDate.timeIntervalSince1970, forKey: "dateInterval")
+        item.setValue(uuid, forKey: "buttonID")
         
         do {
             try managedContext.save()

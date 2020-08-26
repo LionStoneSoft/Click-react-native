@@ -1,0 +1,6 @@
+framework module Pods_Click_ {
+  umbrella header "Pods-Click.-umbrella.h"
+
+  export *
+  module * { export * }
+}

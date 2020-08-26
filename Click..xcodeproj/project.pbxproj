@@ -3,13 +3,12 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		944FEB2D2451931100DB12D9 /* LineChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 944FEB2C2451931100DB12D9 /* LineChart.swift */; };
+		5C38594FC5840AFCF1211A3A /* Pods_Click_.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E8F903D2AF9F75C8E815FAA /* Pods_Click_.framework */; };
 		944FEB2F2451932500DB12D9 /* CurveAlgorithm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 944FEB2E2451932500DB12D9 /* CurveAlgorithm.swift */; };
-		944FEB31245193DD00DB12D9 /* DotCALayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 944FEB30245193DD00DB12D9 /* DotCALayer.swift */; };
 		9460A35523FD709B0029D1D8 /* ClickDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9460A35423FD709B0029D1D8 /* ClickDataView.swift */; };
 		94F9BE2F23F8934500AE6ABD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94F9BE2E23F8934500AE6ABD /* AppDelegate.swift */; };
 		94F9BE3123F8934500AE6ABD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94F9BE3023F8934500AE6ABD /* SceneDelegate.swift */; };
@@ -23,10 +22,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		944FEB2C2451931100DB12D9 /* LineChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineChart.swift; sourceTree = "<group>"; };
+		8E8F903D2AF9F75C8E815FAA /* Pods_Click_.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Click_.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		944FEB2E2451932500DB12D9 /* CurveAlgorithm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurveAlgorithm.swift; sourceTree = "<group>"; };
-		944FEB30245193DD00DB12D9 /* DotCALayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DotCALayer.swift; sourceTree = "<group>"; };
 		9460A35423FD709B0029D1D8 /* ClickDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClickDataView.swift; sourceTree = "<group>"; };
+		94B2E90A7ABFF6CCFA7804F0 /* Pods-Click..release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Click..release.xcconfig"; path = "Target Support Files/Pods-Click./Pods-Click..release.xcconfig"; sourceTree = "<group>"; };
 		94F9BE2B23F8934500AE6ABD /* Click..app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Click..app; sourceTree = BUILT_PRODUCTS_DIR; };
 		94F9BE2E23F8934500AE6ABD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		94F9BE3023F8934500AE6ABD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -38,6 +37,7 @@
 		94F9BE3F23F8934700AE6ABD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		94F9BE4523F975E400AE6ABD /* CollectionClickCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionClickCell.swift; sourceTree = "<group>"; };
 		94F9BE4623F975E400AE6ABD /* CollectionClickCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CollectionClickCell.xib; sourceTree = "<group>"; };
+		CD9CF537BCEA0366F035F12F /* Pods-Click..debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Click..debug.xcconfig"; path = "Target Support Files/Pods-Click./Pods-Click..debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,17 +45,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5C38594FC5840AFCF1211A3A /* Pods_Click_.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7AC2B514D045DCFF412EDC1E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8E8F903D2AF9F75C8E815FAA /* Pods_Click_.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		94F9BE2223F8934500AE6ABD = {
 			isa = PBXGroup;
 			children = (
 				94F9BE2D23F8934500AE6ABD /* Click. */,
 				94F9BE2C23F8934500AE6ABD /* Products */,
+				FC4BDC23F10C188CDCF1999E /* Pods */,
+				7AC2B514D045DCFF412EDC1E /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -81,11 +92,18 @@
 				94F9BE4523F975E400AE6ABD /* CollectionClickCell.swift */,
 				94F9BE4623F975E400AE6ABD /* CollectionClickCell.xib */,
 				9460A35423FD709B0029D1D8 /* ClickDataView.swift */,
-				944FEB2C2451931100DB12D9 /* LineChart.swift */,
 				944FEB2E2451932500DB12D9 /* CurveAlgorithm.swift */,
-				944FEB30245193DD00DB12D9 /* DotCALayer.swift */,
 			);
 			path = Click.;
+			sourceTree = "<group>";
+		};
+		FC4BDC23F10C188CDCF1999E /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				CD9CF537BCEA0366F035F12F /* Pods-Click..debug.xcconfig */,
+				94B2E90A7ABFF6CCFA7804F0 /* Pods-Click..release.xcconfig */,
+			);
+			path = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -95,9 +113,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 94F9BE4223F8934700AE6ABD /* Build configuration list for PBXNativeTarget "Click." */;
 			buildPhases = (
+				665CBC8D4EB7EB84138CC3C0 /* [CP] Check Pods Manifest.lock */,
 				94F9BE2723F8934500AE6ABD /* Sources */,
 				94F9BE2823F8934500AE6ABD /* Frameworks */,
 				94F9BE2923F8934500AE6ABD /* Resources */,
+				CBC0C38922395BC4E9C8B3CC /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -155,18 +175,58 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		665CBC8D4EB7EB84138CC3C0 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Click.-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CBC0C38922395BC4E9C8B3CC /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Click./Pods-Click.-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Click./Pods-Click.-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Click./Pods-Click.-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		94F9BE2723F8934500AE6ABD /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				94F9BE3923F8934600AE6ABD /* Click_.xcdatamodeld in Sources */,
-				944FEB31245193DD00DB12D9 /* DotCALayer.swift in Sources */,
 				9460A35523FD709B0029D1D8 /* ClickDataView.swift in Sources */,
 				94F9BE3323F8934500AE6ABD /* ViewController.swift in Sources */,
 				944FEB2F2451932500DB12D9 /* CurveAlgorithm.swift in Sources */,
 				94F9BE2F23F8934500AE6ABD /* AppDelegate.swift in Sources */,
-				944FEB2D2451931100DB12D9 /* LineChart.swift in Sources */,
 				94F9BE3123F8934500AE6ABD /* SceneDelegate.swift in Sources */,
 				94F9BE4723F975E400AE6ABD /* CollectionClickCell.swift in Sources */,
 			);
@@ -310,6 +370,7 @@
 		};
 		94F9BE4323F8934700AE6ABD /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CD9CF537BCEA0366F035F12F /* Pods-Click..debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -320,15 +381,16 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "LionStone.com.Click-";
+				PRODUCT_BUNDLE_IDENTIFIER = LionStone.com.Click;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
 		94F9BE4423F8934700AE6ABD /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 94B2E90A7ABFF6CCFA7804F0 /* Pods-Click..release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -339,10 +401,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "LionStone.com.Click-";
+				PRODUCT_BUNDLE_IDENTIFIER = LionStone.com.Click;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

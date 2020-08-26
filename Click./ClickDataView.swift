@@ -8,12 +8,13 @@
 
 import UIKit
 import CoreData
+import Charts
 
-class ClickDataView: UIViewController
+class ClickDataView: UIViewController, ChartViewDelegate
  {
     @IBOutlet var clickDataTestLabel: UILabel!
     
-    @IBOutlet weak var lineChart: LineChart!
+    @IBOutlet weak var lineChart: LineChartView!
     
     var clickDataArray = [NSManagedObject]()
     var dateArray = [String]()
@@ -25,12 +26,12 @@ class ClickDataView: UIViewController
         clickDataTestLabel.text = buttonID
         populateDataArray()
         print(dateArray)
-        let dataEntries = populateDataIntoChart()
-        lineChart.dataEntries = dataEntries
-        //lineChart.isCurved = true
-        //lineChart.showDots = true
-        //lineChart.animateDots = true
-        //print(dataEntries)
+        
+        lineChart.backgroundColor = .systemTeal
+    }
+    
+    func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
+        print(entry)
     }
     
     func populateDataArray() {
@@ -86,14 +87,14 @@ class ClickDataView: UIViewController
 //        return result
 //    }
     
-    private func populateDataIntoChart() -> [PointEntry] {
-        var result: [PointEntry] = []
-        result.append(PointEntry(label: "21 Apr", value: 1))
-        for item in dailyButtonCounter {
-            result.append(PointEntry(label: item.key, value: item.value))
-        }
-        return result
-    }
+//    private func populateDataIntoChart() -> [PointEntry] {
+//        var result: [PointEntry] = []
+//        result.append(PointEntry(label: "21 Apr", value: 1))
+//        for item in dailyButtonCounter {
+//            result.append(PointEntry(label: item.key, value: item.value))
+//        }
+//        return result
+//    }
     
 
     
