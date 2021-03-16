@@ -36,9 +36,12 @@ const data = [
         // >
         //   <Text style={styles.itemText}>{item.title}</Text>
         // </View>
+        <View style={styles.item}>
             <ButtonTile 
+                style={styles.item}
                 title={item.title}
             />
+        </View>
       );
     };
   
@@ -60,7 +63,7 @@ const data = [
       marginVertical: 20,
     },
     item: {
-      backgroundColor: '#4D243D',
+      backgroundColor: 'transparent',
       alignItems: 'center',
       justifyContent: 'center',
       flex: 1,
