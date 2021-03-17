@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { SafeAreaView, View, Text, StyleSheet, Button, FlatList, Dimensions, Image, Screen } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import ButtonTile from '../components/ButtonTile';
 
 const data = [
@@ -27,13 +28,11 @@ const data = [
   const numColumns = 3;
   export default class HomeScreen extends React.Component {
     static navigationOptions = {
-      headerTitle: () => <Text>Testa</Text>,
+      headerTitle: () => <Text style={styles.headerTitle}>Click.</Text>,
       headerRight: () => (
-        <Button
-          onPress={() => alert('This is a button!')}
-          title="+"
-          color="black"
-        />
+        <TouchableOpacity onPress={() => alert('This is a button!')}>
+          <Text style={styles.headerBtn}>+</Text>
+        </TouchableOpacity>
       ),
     };
 
@@ -89,5 +88,14 @@ const data = [
     },
     itemText: {
       color: '#fff',
+    },
+    headerBtn: {
+      fontSize: 25,
+      color: 'black',
+      paddingRight: 20,
+    },
+    headerTitle: {
+      fontSize: 25,
+      color: 'black',
     },
   });
