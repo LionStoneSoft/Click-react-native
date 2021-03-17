@@ -5,8 +5,8 @@ import TestScreen from './src/screens/TestScreen';
 
 const navigator = createStackNavigator(
 {
-  Home: HomeScreen,
-  Test: TestScreen,
+  Home: { screen: HomeScreen },
+  Test: { screen: TestScreen},
 }, {
   initialRouteName: 'Home',
   defaultNavigationOptions: {

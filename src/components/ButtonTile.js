@@ -1,12 +1,12 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image, Dimensions, Animated, TouchableOpacity } from 'react-native';
+import { withNavigation } from 'react-navigation';
 
-const ButtonTile = ({ title }) => {
+const ButtonTile = ({ title, navigation }) => {
     const animation = new Animated.Value(0);
     const inputRange = [0, 2];
     const outputRange = [1, 0.8];
     const scale = animation.interpolate({inputRange, outputRange});
-
     const onPressIn = () => {
         Animated.spring(animation, {
           toValue: 1,
@@ -24,6 +24,11 @@ const ButtonTile = ({ title }) => {
         }).start();
       };
 
+    //   const onLongPress = () => {                      //here use arrow  function
+    //     console.log("test");
+    //     this.navigation.navigate('Test');    
+    // }
+    // const { params } = this.props.navigation.state;
     return (
     
         <Animated.View style={[{transform: [{scale}]}]}>
@@ -31,7 +36,9 @@ const ButtonTile = ({ title }) => {
                 //style={styles.btn}
                 activeOpacity={1}
                 onPressIn={onPressIn}
-                onPressOut={onPressOut}>
+                onPressOut={onPressOut}
+                onLongPress={() => navigation.navigate('Test')}
+                >
                 <View style={styles.viewStyle}>
                 <Text style={styles.btnText}>{title}</Text>
                 </View>
@@ -66,4 +73,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ButtonTile;
+export default withNavigation(ButtonTile);

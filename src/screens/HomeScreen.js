@@ -47,6 +47,7 @@ const data = [
         // >
         //   <Text style={styles.itemText}>{item.title}</Text>
         // </View>
+        
         <View style={styles.item}>
             <ButtonTile 
                 style={styles.item}
