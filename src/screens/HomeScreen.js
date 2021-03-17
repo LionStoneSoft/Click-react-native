@@ -60,7 +60,8 @@ const data = [
   const styles = StyleSheet.create({
     container: {
       flex: 1,
-      marginVertical: 20,
+      marginVertical: 5,
+      marginHorizontal: 5,
     },
     item: {
       backgroundColor: 'transparent',
