@@ -47,8 +47,9 @@ const styles = StyleSheet.create({
         flex: 1,
         margin: 2,
         height: Dimensions.get('window').width / numColumns, // approximate a square
-        width: Dimensions.get('window').width / numColumns,
-        borderRadius: 15
+        width: Dimensions.get('window').width / numColumns - 5,
+        borderRadius: 15,
+        paddingHorizontal: 15
     },
     btn: {
     flex: 1,
