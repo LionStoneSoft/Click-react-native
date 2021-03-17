@@ -10,8 +10,9 @@ const navigator = createStackNavigator(
 }, {
   initialRouteName: 'Home',
   defaultNavigationOptions: {
-    title: 'ppap'
-  }
+    title: 'ppap',
+  },
+
 });
 
 export default createAppContainer(navigator);

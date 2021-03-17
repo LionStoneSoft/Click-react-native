@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, Image, Dimensions, Animated, TouchableOpacity }
 
 const ButtonTile = ({ title }) => {
     const animation = new Animated.Value(0);
-    const inputRange = [0, 1];
+    const inputRange = [0, 2];
     const outputRange = [1, 0.8];
     const scale = animation.interpolate({inputRange, outputRange});
 
@@ -11,12 +11,16 @@ const ButtonTile = ({ title }) => {
         Animated.spring(animation, {
           toValue: 1,
           useNativeDriver: true,
+          bounciness: 5,
+          speed: 70
         }).start();
       };
       const onPressOut = () => {
         Animated.spring(animation, {
           toValue: 0,
           useNativeDriver: true,
+          bounciness: 5,
+          speed: 70
         }).start();
       };
 

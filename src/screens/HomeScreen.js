@@ -26,6 +26,10 @@ const data = [
   
   const numColumns = 3;
   export default class HomeScreen extends React.Component {
+    static navigationOptions = {
+      title: 'Home',
+    };
+
     renderItem = ({ item, index }) => {
       if (item.empty === true) {
         return <View style={[styles.item, styles.itemInvisible]} />;
