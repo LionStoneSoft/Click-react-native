@@ -27,7 +27,14 @@ const data = [
   const numColumns = 3;
   export default class HomeScreen extends React.Component {
     static navigationOptions = {
-      title: 'Home',
+      headerTitle: () => <Text>Testa</Text>,
+      headerRight: () => (
+        <Button
+          onPress={() => alert('This is a button!')}
+          title="+"
+          color="black"
+        />
+      ),
     };
 
     renderItem = ({ item, index }) => {
@@ -59,6 +66,7 @@ const data = [
         />
       );
     }
+
   }
   
   const styles = StyleSheet.create({
