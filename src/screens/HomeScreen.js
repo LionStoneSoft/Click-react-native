@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { SafeAreaView, View, Text, StyleSheet, Button, FlatList, Dimensions, Image, Screen } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import ButtonTile from '../components/ButtonTile';
+import Storage from '../model/Storage';
 
 const data = [
     {key: 1, title: 'coom'},{key: 2, title: 'bum'},{key: 3, title: 'poo'},{key: 4, title: 'poops'},{key: 5, title: 'poo'},{key: 6, title: 'poo'},{key: 7, title: 'poo'},{key: 8, title: 'poo'},{key: 9, title: 'poo'},{key: 10, title: 'poo'},{key: 11, title: 'poo'},{key: 12, title: 'poo'},{key: 13, title: 'poo'},{key: 14, title: 'poo'},{key: 15, title: 'poo'},{key: 16, title: 'poo'},
@@ -24,13 +25,18 @@ const data = [
   
     return data;
   };
+
+  const headerButtonPress = () => {
+    alert('This is a button!')
+  }
   
   const numColumns = 3;
-  export default class HomeScreen extends React.Component {
+  class HomeScreen extends React.Component {
     static navigationOptions = {
       headerTitle: () => <Text style={styles.headerTitle}>Click.</Text>,
       headerRight: () => (
-        <TouchableOpacity onPress={() => alert('This is a button!')}>
+        
+        <TouchableOpacity onPress={headerButtonPress}>
           <Text style={styles.headerBtn}>+</Text>
         </TouchableOpacity>
       ),
@@ -98,4 +104,12 @@ const data = [
       fontSize: 25,
       color: 'black',
     },
+    modal: {
+      flex: 1,
+      alignItems: 'center',
+      backgroundColor: '#00ff00',
+      padding: 100,
+    },
   });
+
+  export default HomeScreen;
