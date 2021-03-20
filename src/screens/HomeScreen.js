@@ -73,6 +73,14 @@ const data = [
       )
     }
 
+    state = {
+      isVisible: true
+    };
+
+    displayModal(show){
+      this.setState({isVisible: show})
+    }
+
     render() {
       return (
         <View style={styles.mainContainer}>
@@ -81,13 +89,19 @@ const data = [
          </View>
           <Modal 
             transparent={true}
-            visible={true}
+            visible={this.state.isVisible}
             >
             <View style={styles.modalBackground}>
               <View style={styles.modalView}>
-                <Text style={{ fontSize: 50 }}>
+              <TouchableOpacity
+              onPress={() => {
+                this.displayModal(false);
+              }}>
+              <Text style={{ fontSize: 50 }}>
                   Modal!
                 </Text>
+          </TouchableOpacity>
+                
               </View>
             </View>
 
