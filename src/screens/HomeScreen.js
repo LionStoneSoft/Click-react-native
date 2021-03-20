@@ -25,22 +25,39 @@ const data = [
   
     return data;
   };
-
-  const headerButtonPress = () => {
-    alert('This is a button!')
-  }
   
   const numColumns = 3;
   class HomeScreen extends React.Component {
-    static navigationOptions = {
-      headerTitle: () => <Text style={styles.headerTitle}>Click.</Text>,
-      headerRight: () => (
-        
-        <TouchableOpacity onPress={headerButtonPress}>
-          <Text style={styles.headerBtn}>+</Text>
-        </TouchableOpacity>
-      ),
-    };
+
+    static navigationOptions = ({navigation, screenProps}) => {
+      const params = navigation.state.params || {};
+    
+      return {
+        headerTitle: () => params.headerTitle,
+        headerRight: () => params.headerRight,
+      }
+    }
+    
+    _setNavigationParams() {
+      let headerTitle = <Text style={styles.headerTitle}>Click.</Text>;
+      let headerRight = <TouchableOpacity onPress={this._headerButtonPress.bind(this)}>
+                          <Text style={styles.headerBtn}>+</Text>
+                        </TouchableOpacity>;
+      this.props.navigation.setParams({ 
+        headerTitle,
+        headerRight, 
+      });
+    }
+    
+    componentDidMount() {
+      this._setNavigationParams();
+    }
+
+    _headerButtonPress = () => {
+      this.displayModal(true);
+    }
+
+
 
     renderItem = ({ item, index }) => {
       if (item.empty === true) {
