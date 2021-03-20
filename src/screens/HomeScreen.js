@@ -83,7 +83,14 @@ const data = [
             transparent={true}
             visible={true}
             >
-            <Text>Modal!</Text>
+            <View style={styles.modalBackground}>
+              <View style={styles.modalView}>
+                <Text style={{ fontSize: 50 }}>
+                  Modal!
+                </Text>
+              </View>
+            </View>
+
           </Modal>
 
         </View>
@@ -93,6 +100,16 @@ const data = [
   }
   
   const styles = StyleSheet.create({
+    modalBackground: {
+      backgroundColor: "#000000aa",
+      flex: 1,
+    },
+    modalView: {
+      backgroundColor: "white",
+      margin: 50,
+      padding: 40,
+      borderRadius: 10,
+    },
     mainContainer: {
       flex: 1,
       backgroundColor: 'blue',
