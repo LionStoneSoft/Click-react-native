@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { SafeAreaView, View, Text, StyleSheet, Button, FlatList, Dimensions, Image, Screen } from 'react-native';
+import { SafeAreaView, View, Text, StyleSheet, Button, FlatList, Dimensions, Image, Screen, Modal } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import ButtonTile from '../components/ButtonTile';
 import Storage from '../model/Storage';
@@ -62,20 +62,42 @@ const data = [
       );
     };
   
-    render() {
-      return (
+    renderButtonList() {
+      return(
         <FlatList
           data={formatData(data, numColumns)}
           style={styles.container}
           renderItem={this.renderItem}
           numColumns={numColumns}
         />
+      )
+    }
+
+    render() {
+      return (
+        <View style={styles.mainContainer}>
+         <View style={styles.mainContainer}>
+         {this.renderButtonList()}
+         </View>
+          <Modal 
+            transparent={true}
+            visible={true}
+            >
+            <Text>Modal!</Text>
+          </Modal>
+
+        </View>
       );
     }
 
   }
   
   const styles = StyleSheet.create({
+    mainContainer: {
+      flex: 1,
+      backgroundColor: 'blue',
+      justifyContent: 'center',
+  },
     container: {
       flex: 1,
       marginVertical: 5,
