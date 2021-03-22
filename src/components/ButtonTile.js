@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, Image, Dimensions, Animated, TouchableOpacity } from 'react-native';
 import { withNavigation } from 'react-navigation';
 
-const ButtonTile = ({ title, navigation }) => {
+const ButtonTile = ({ title, amount, navigation }) => {
     const animation = new Animated.Value(0);
     const inputRange = [0, 2];
     const outputRange = [1, 0.8];
@@ -24,11 +24,6 @@ const ButtonTile = ({ title, navigation }) => {
         }).start();
       };
 
-    //   const onLongPress = () => {                      //here use arrow  function
-    //     console.log("test");
-    //     this.navigation.navigate('Test');    
-    // }
-    // const { params } = this.props.navigation.state;
     return (
     
         <Animated.View style={[{transform: [{scale}]}]}>
@@ -41,6 +36,7 @@ const ButtonTile = ({ title, navigation }) => {
                 >
                 <View style={styles.viewStyle}>
                 <Text style={styles.btnText}>{title}</Text>
+                <Text style={styles.btnText}>{amount}</Text>
                 </View>
             </TouchableOpacity>
         </Animated.View>

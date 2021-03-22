@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { SafeAreaView, View, Text, StyleSheet, Button, FlatList, Dimensions, Image, Screen, Modal, TextInput } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import ButtonTile from '../components/ButtonTile';
-import ModalCreateButton from '../screens/ModalCreateButton';
+import ModalCreateButton from '../components/ModalCreateButton';
 import Storage from '../model/Storage';
 
 const data = [
-    {key: 1, title: 'coom'},{key: 2, title: 'bum'},{key: 3, title: 'poo'},{key: 4, title: 'poops'},{key: 5, title: 'poo'},{key: 6, title: 'poo'},{key: 7, title: 'poo'},{key: 8, title: 'poo'},{key: 9, title: 'poo'},{key: 10, title: 'poo'},{key: 11, title: 'poo'},{key: 12, title: 'poo'},{key: 13, title: 'poo'},{key: 14, title: 'poo'},{key: 15, title: 'poo'},{key: 16, title: 'poo'},
+    {key: 1, title: 'coom', amount: 2},{key: 2, title: 'bum', amount: 2},{key: 3, title: 'poo', amount: 2},{key: 4, title: 'poops', amount: 2},{key: 5, title: 'poo', amount: 2},{key: 6, title: 'poo', amount: 2},{key: 7, title: 'poo', amount: 2},{key: 8, title: 'poo', amount: 2}
 ];
 
 // const data = [
@@ -75,6 +75,7 @@ const data = [
             <ButtonTile 
                 style={styles.item}
                 title={item.title}
+                amount={item.amount}
             />
         </View>
       );
@@ -125,7 +126,7 @@ const data = [
     
     mainContainer: {
       flex: 1,
-      backgroundColor: 'blue',
+      //backgroundColor: 'blue',
       justifyContent: 'center',
   },
     container: {
