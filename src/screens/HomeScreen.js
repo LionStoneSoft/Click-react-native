@@ -1,9 +1,17 @@
 import React, { useState } from 'react';
-import { SafeAreaView, View, Text, StyleSheet, Button, FlatList, Dimensions, Image, Screen, Modal, TextInput } from 'react-native';
+import { View, Text, StyleSheet, FlatList, Dimensions } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import ButtonTile from '../components/ButtonTile';
 import ModalCreateButton from '../components/ModalCreateButton';
-import Storage from '../model/Storage';
+import { MMKV } from 'react-native-mmkv';
+
+const buttonData = {
+  buttonID: "",
+  title: "",
+  currentDateTime: Date().toLocaleString(),
+  note: "",
+
+}
 
 const data = [
     {key: 1, title: 'coom', amount: 2},{key: 2, title: 'bum', amount: 2},{key: 3, title: 'poo', amount: 2},{key: 4, title: 'poops', amount: 2},{key: 5, title: 'poo', amount: 2},{key: 6, title: 'poo', amount: 2},{key: 7, title: 'poo', amount: 2},{key: 8, title: 'poo', amount: 2}
@@ -16,6 +24,7 @@ const data = [
 //   ];
   
   const formatData = (data, numColumns) => {
+    
     const numberOfFullRows = Math.floor(data.length / numColumns);
   
     let numberOfElementsLastRow = data.length - (numberOfFullRows * numColumns);

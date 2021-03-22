@@ -1,12 +1,15 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image, Dimensions, Animated, TouchableOpacity } from 'react-native';
 import { withNavigation } from 'react-navigation';
+import { v4 as uuid } from 'uuid'
+
 
 const ButtonTile = ({ title, amount, navigation }) => {
     const animation = new Animated.Value(0);
     const inputRange = [0, 2];
     const outputRange = [1, 0.8];
     const scale = animation.interpolate({inputRange, outputRange});
+
     const onPressIn = () => {
         Animated.spring(animation, {
           toValue: 1,
@@ -14,7 +17,10 @@ const ButtonTile = ({ title, amount, navigation }) => {
           bounciness: 5,
           speed: 70
         }).start();
+        console.log(Date().toLocaleString());
+        console.log(uuid())
       };
+
       const onPressOut = () => {
         Animated.spring(animation, {
           toValue: 0,
