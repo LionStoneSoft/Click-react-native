@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { SafeAreaView, View, Text, StyleSheet, Button, FlatList, Dimensions, Image, Screen, Modal } from 'react-native';
+import { SafeAreaView, View, Text, StyleSheet, Button, FlatList, Dimensions, Image, Screen, Modal, TextInput } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import ButtonTile from '../components/ButtonTile';
+import ModalCreateButton from '../screens/ModalCreateButton';
 import Storage from '../model/Storage';
 
 const data = [
@@ -91,7 +92,7 @@ const data = [
     }
 
     state = {
-      isVisible: true
+      isVisible: false
     };
 
     displayModal(show){
@@ -99,30 +100,19 @@ const data = [
     }
 
     render() {
+      modalStateChange = (currentState) => {
+        this.displayModal(currentState);
+      }      
       return (
         <View style={styles.mainContainer}>
          <View style={styles.mainContainer}>
          {this.renderButtonList()}
          </View>
-          <Modal 
-            transparent={true}
-            visible={this.state.isVisible}
-            >
-            <View style={styles.modalBackground}>
-              <View style={styles.modalView}>
-              <TouchableOpacity
-              onPress={() => {
-                this.displayModal(false);
-              }}>
-              <Text style={{ fontSize: 50 }}>
-                  Modal!
-                </Text>
-          </TouchableOpacity>
-                
-              </View>
-            </View>
-
-          </Modal>
+        {/* modal */}
+        <ModalCreateButton 
+          isVisible={this.state.isVisible}
+          onCreateTap={() => modalStateChange(false)}
+        />
 
         </View>
       );
@@ -131,16 +121,8 @@ const data = [
   }
   
   const styles = StyleSheet.create({
-    modalBackground: {
-      backgroundColor: "#000000aa",
-      flex: 1,
-    },
-    modalView: {
-      backgroundColor: "white",
-      margin: 50,
-      padding: 40,
-      borderRadius: 10,
-    },
+    
+    
     mainContainer: {
       flex: 1,
       backgroundColor: 'blue',
