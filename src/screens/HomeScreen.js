@@ -3,25 +3,25 @@ import { View, Text, StyleSheet, FlatList, Dimensions } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import ButtonTile from '../components/ButtonTile';
 import ModalCreateButton from '../components/ModalCreateButton';
-import { MMKV } from 'react-native-mmkv';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const buttonData = {
-  buttonID: "",
-  title: "",
-  currentDateTime: Date().toLocaleString(),
-  note: "",
 
-}
+// const buttonObj = {
+//   buttonID: "",
+//   title: "",
+// }
 
-const data = [
-    {key: 1, title: 'coom', amount: 2},{key: 2, title: 'bum', amount: 2},{key: 3, title: 'poo', amount: 2},{key: 4, title: 'poops', amount: 2},{key: 5, title: 'poo', amount: 2},{key: 6, title: 'poo', amount: 2},{key: 7, title: 'poo', amount: 2},{key: 8, title: 'poo', amount: 2}
+// const testFunc = (buttonData) => {
+//   var {buttonData} = {
+//     currentDateTime: Date().toLocaleString(),
+//     note: "",
+//   }
+// }
+
+
+var data = [
+    //{key: 1, title: 'coom', amount: 2},{key: 2, title: 'bum', amount: 2},{key: 3, title: 'poo', amount: 2},{key: 4, title: 'poops', amount: 2},{key: 5, title: 'poo', amount: 2},{key: 6, title: 'poo', amount: 2},{key: 7, title: 'poo', amount: 2},{key: 8, title: 'poo', amount: 2}
 ];
-
-// const data = [
-//     { key: 'A' }, { key: 'B' }, { key: 'C' }, { key: 'D' }, { key: 'E' }, { key: 'F' }, { key: 'G' }, { key: 'H' }, { key: 'I' }, { key: 'J' },
-//     // { key: 'K' },
-//     // { key: 'L' },
-//   ];
   
   const formatData = (data, numColumns) => {
     
@@ -29,15 +29,17 @@ const data = [
   
     let numberOfElementsLastRow = data.length - (numberOfFullRows * numColumns);
     while (numberOfElementsLastRow !== numColumns && numberOfElementsLastRow !== 0) {
-      data.push({ key: `blank-${numberOfElementsLastRow}`, empty: true });
+      data.push({ buttonID: `blank-${numberOfElementsLastRow}`, empty: true });
       numberOfElementsLastRow++;
     }
   
     return data;
   };
+
+  
   
   const numColumns = 3;
-  class HomeScreen extends React.Component {
+  export default class HomeScreen extends React.Component {
 
     static navigationOptions = ({navigation, screenProps}) => {
       const params = navigation.state.params || {};
@@ -74,22 +76,24 @@ const data = [
         return <View style={[styles.item, styles.itemInvisible]} />;
       }
       return (
-        // <View
-        //   style={styles.item}
-        // >
-        //   <Text style={styles.itemText}>{item.title}</Text>
-        // </View>
-        
         <View style={styles.item}>
             <ButtonTile 
                 style={styles.item}
                 title={item.title}
-                amount={item.amount}
+                //amount={item.amount}
             />
         </View>
       );
     };
   
+    
+
+    refreshTheList(reload){
+      this.setState({
+        refresh: reload,
+      })
+    }
+
     renderButtonList() {
       return(
         <FlatList
@@ -97,6 +101,8 @@ const data = [
           style={styles.container}
           renderItem={this.renderItem}
           numColumns={numColumns}
+          showsVerticalScrollIndicator={false}
+          extraData={this.state.refresh}
         />
       )
     }
@@ -106,13 +112,28 @@ const data = [
     };
 
     displayModal(show){
-      this.setState({isVisible: show})
+      this.setState({
+        isVisible: show,
+      })
     }
+
+    
 
     render() {
       modalStateChange = (currentState) => {
         this.displayModal(currentState);
       }      
+
+      populateButtons = () => {
+        AsyncStorage.getItem('buttonObj')
+          .then((buttonObj) => {
+            const b = buttonObj ? JSON.parse(buttonObj) : [];
+            data = b;
+            console.log(b);
+            this.refreshTheList(true);
+          });
+      }
+      
       return (
         <View style={styles.mainContainer}>
          <View style={styles.mainContainer}>
@@ -121,9 +142,10 @@ const data = [
         {/* modal */}
         <ModalCreateButton 
           isVisible={this.state.isVisible}
+          populateButtonsTap={() => populateButtons()}
           onCreateTap={() => modalStateChange(false)}
+          
         />
-
         </View>
       );
     }
@@ -174,4 +196,3 @@ const data = [
     },
   });
 
-  export default HomeScreen;

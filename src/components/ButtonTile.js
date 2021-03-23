@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, Image, Dimensions, Animated, TouchableOpacity } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import { v4 as uuid } from 'uuid'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 const ButtonTile = ({ title, amount, navigation }) => {
@@ -17,8 +18,9 @@ const ButtonTile = ({ title, amount, navigation }) => {
           bounciness: 5,
           speed: 70
         }).start();
-        console.log(Date().toLocaleString());
-        console.log(uuid())
+        // console.log(Date().toLocaleString());
+        // console.log(uuid())
+        AsyncStorage.clear();
       };
 
       const onPressOut = () => {
