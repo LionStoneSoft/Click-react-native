@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, FlatList, Dimensions } from 'react-native';
+import React from 'react';
+import { View, Text, StyleSheet, FlatList, Dimensions, TextInput, Modal,  } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import ButtonTile from '../components/ButtonTile';
-import ModalCreateButton from '../components/ModalCreateButton';
+import { v4 as uuid } from 'uuid';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
@@ -40,6 +40,15 @@ var data = [
   
   const numColumns = 3;
   export default class HomeScreen extends React.Component {
+
+    state = {
+      isVisible: false,
+      inputText: ''
+   }
+
+    handleInput = (text) => {
+      this.setState({ inputText: text })
+    }
 
     static navigationOptions = ({navigation, screenProps}) => {
       const params = navigation.state.params || {};
@@ -107,10 +116,6 @@ var data = [
       )
     }
 
-    state = {
-      isVisible: false
-    };
-
     displayModal(show){
       this.setState({
         isVisible: show,
@@ -134,18 +139,65 @@ var data = [
           });
       }
       
+      createButton = () => {
+
+        var button = {
+          buttonID: uuid(),
+          title: this.state.inputText,
+        };
+        if (AsyncStorage.getItem('buttonObj') == null) {
+          const initialArray = [];
+          initialArray.push(button);
+          AsyncStorage.setItem('buttonObj', initialArray);
+          console.log(initialArray)
+          populateButtons();
+        } else {
+        AsyncStorage.getItem('buttonObj')
+        .then((buttonObj) => {
+          const b = buttonObj ? JSON.parse(buttonObj) : [];
+          b.push(button);
+          AsyncStorage.setItem('buttonObj', JSON.stringify(b));
+          console.log(b)
+          populateButtons();
+        });
+      }
+      }
+
       return (
         <View style={styles.mainContainer}>
          <View style={styles.mainContainer}>
          {this.renderButtonList()}
          </View>
         {/* modal */}
-        <ModalCreateButton 
-          isVisible={this.state.isVisible}
-          populateButtonsTap={() => populateButtons()}
-          onCreateTap={() => modalStateChange(false)}
-          
-        />
+        <Modal 
+            transparent={true}
+            visible={this.state.isVisible}
+            >
+            <View style={styles.modalBackground}>
+              <View style={styles.modalView}>
+              <Text style={styles.topText}>Create your button!</Text>
+              <TextInput 
+                style={styles.input}
+                //value={text}
+                onChangeText={this.handleInput}
+                
+              />
+              <TouchableOpacity
+              style={styles.modalButton}
+              
+              onPress={() => {                
+                createButton();
+                this.state.isVisible = false
+              }}>
+              <Text style={styles.buttonText}>
+                  Submit
+                </Text>
+          </TouchableOpacity>
+                
+              </View>
+            </View>
+
+          </Modal>
         </View>
       );
     }
@@ -154,7 +206,40 @@ var data = [
   
   const styles = StyleSheet.create({
     
-    
+    topText: {
+      fontSize: 20,
+      textAlign: 'center'
+    },
+    input: {
+        height: 40,
+        margin: 12,
+        borderWidth: 1,
+        borderRadius: 10,
+        alignContent: 'center'
+      },
+      modalBackground: {
+        backgroundColor: "#000000aa",
+        flex: 1,
+      },
+      modalView: {
+        backgroundColor: "white",
+        margin: 50,
+        padding: 40,
+        borderRadius: 10,
+      },
+      modalButton: {
+        backgroundColor: "#085",
+        borderRadius: 10,
+        alignSelf: 'center',
+        padding: 10
+        //height: 40
+      },
+      buttonText: {
+        fontSize: 20,
+        color: "white",
+        textAlign: 'center',
+
+      },
     mainContainer: {
       flex: 1,
       //backgroundColor: 'blue',
@@ -194,5 +279,6 @@ var data = [
       backgroundColor: '#00ff00',
       padding: 100,
     },
+    
   });
 
