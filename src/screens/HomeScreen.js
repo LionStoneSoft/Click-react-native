@@ -35,11 +35,15 @@ var data = [
   
     return data;
   };
-
-  
   
   const numColumns = 3;
   export default class HomeScreen extends React.Component {
+    constructor(props) {
+      super(props);
+      //const me = this;
+      this.populateButtons();
+    }
+
 
     state = {
       isVisible: false,
@@ -89,6 +93,7 @@ var data = [
             <ButtonTile 
                 style={styles.item}
                 title={item.title}
+                buttonID={item.buttonID}
                 //amount={item.amount}
             />
         </View>
@@ -122,6 +127,15 @@ var data = [
       })
     }
 
+    populateButtons = () => {
+      AsyncStorage.getItem('buttonObj')
+        .then((buttonObj) => {
+          const b = buttonObj ? JSON.parse(buttonObj) : [];
+          data = b;
+          console.log(b);
+          this.refreshTheList(true);
+        });
+    };
     
 
     render() {
@@ -129,15 +143,7 @@ var data = [
         this.displayModal(currentState);
       }      
 
-      populateButtons = () => {
-        AsyncStorage.getItem('buttonObj')
-          .then((buttonObj) => {
-            const b = buttonObj ? JSON.parse(buttonObj) : [];
-            data = b;
-            console.log(b);
-            this.refreshTheList(true);
-          });
-      }
+      
       
       createButton = () => {
 
@@ -150,7 +156,7 @@ var data = [
           initialArray.push(button);
           AsyncStorage.setItem('buttonObj', initialArray);
           console.log(initialArray)
-          populateButtons();
+          this.populateButtons();
         } else {
         AsyncStorage.getItem('buttonObj')
         .then((buttonObj) => {
@@ -158,7 +164,7 @@ var data = [
           b.push(button);
           AsyncStorage.setItem('buttonObj', JSON.stringify(b));
           console.log(b)
-          populateButtons();
+          this.populateButtons();
         });
       }
       }
