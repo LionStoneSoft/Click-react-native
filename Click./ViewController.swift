@@ -122,7 +122,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         cell.cellNameLabel.text = buttonObjectsArray[indexPath.row].value(forKey: "name") as? String
         cell.cellID = buttonObjectsArray[indexPath.row].value(forKey: "buttonID") as? String
         cell.cellButtonCountLabel.text = String(cellsCount) //String(buttonCount)
-        cell.cellLastDateAndTime.text = buttonObjectsArray[indexPath.row].value(forKey: "latestDate") as? String
+//        cell.cellLastDateAndTime.text = buttonObjectsArray[indexPath.row].value(forKey: "latestDate") as? String
         
         let leftSwipeGest = UISwipeGestureRecognizer(target: self, action: #selector(swipeMade))
         leftSwipeGest.direction = .left

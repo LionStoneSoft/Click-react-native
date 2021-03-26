@@ -12,7 +12,6 @@ class CollectionClickCell: UICollectionViewCell {
 
     @IBOutlet var cellBackgroundView: UIView!
     @IBOutlet var cellNameLabel: UILabel!
-    @IBOutlet var cellLastDateAndTime: UILabel!
     @IBOutlet var backgroundImage: UIImageView!
     @IBOutlet var cellButtonCountLabel: UILabel!
     var cellID: String?
